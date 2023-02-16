@@ -53,14 +53,9 @@ function AuthPage() {
       body: JSON.stringify(userinfo)
     });
     if (resp.ok) {
-      let respData = await resp.json()
+      let data = await resp.json()
       console.log(data)
-      let data = {
-        id: respData['id'],
-        name: respData['name'],
-        email: respData['email']
-      }
-      navigate('/dashboard/', data)
+      navigate('/dashboard', { replace: true, state: data })
     } else {
       throw Error(resp.status)
     }
