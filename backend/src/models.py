@@ -38,16 +38,16 @@ class UserAuth:
         if user_info:
             user = self._db.users.find_one({ 'email': user_info['email'] })
             if user and pbkdf2_sha256.verify(user_info['password'], user['password']):
-                return self.start_session((user_info))
+                return self.start_session((user))
             else:
-                return jsonify({ 'error': "Passwords don't match" }), 400
+                return jsonify({ 'error': "Invalid user input" }), 400
         else:
             return jsonify({ 'error': 'User information missing!' }), 500
 
     # Called from logout to stop session.
     def stop_session(self):
         msg = {}
-        if session['logged_in']:
+        if session.get('logged_in'):
             session.clear()
             msg['message'] = 'Logged out successfully'
         else:

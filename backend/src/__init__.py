@@ -1,6 +1,7 @@
 import pymongo
 from flask import Flask, current_app as capp
 from config import AppConfig
+from flask_cors import CORS
 
 # Inorder to connect to mongodb first get mongodb client
 def get_db_client():
@@ -15,6 +16,7 @@ def get_db_instance():
 def create_app(app_config=AppConfig):
     app = Flask(__name__)
     app.config.from_object(app_config)
+    cors = CORS(app, resources={ r"/api/*": { "origins": "*" }})
 
     from src.auth import auth_blueprint
     app.register_blueprint(auth_blueprint)
