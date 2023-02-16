@@ -29,7 +29,5 @@ def login():
 @abp.route('/api/logout', methods=['POST'])
 @cross_origin()
 def logout():
-    print('Got here...')
-    UserAuth().stop_session()
-    print('Done...')
+    return UserAuth().stop_session()
 

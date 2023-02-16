@@ -5,12 +5,16 @@ import { useLocation, useNavigate } from "react-router-dom";
 const Dashboard = () => {
 
   let navigate = useNavigate()
-  let location = useLocation()
 
+  // Capture the state set by navigate call from AuthPage
+  let location = useLocation()
   const { _id, name, email } = location.state;
 
   async function handleLogout() {
-    const headers = { 'Content-Type': 'application/json' }
+    const headers = {
+      // Setting content-type as plain text avoids OPTIONS call.
+      'Content-Type': 'text/plain',
+    }
     const api = userApis.userLogout
     let resp = await fetch(api.url, {
       method: api.method,

@@ -46,13 +46,8 @@ class UserAuth:
 
     # Called from logout to stop session.
     def stop_session(self):
-        msg = {}
-        if session.get('logged_in'):
-            session.clear()
-            msg['message'] = 'Logged out successfully'
-        else:
-            msg['message'] = 'Already logged out!'
-        return jsonify(msg), 200
+        session.clear()
+        return jsonify({'message': 'Logged out successfully'}), 200
 
 
 def get_signup_data(name: str, email: str, pswd: str) -> dict:

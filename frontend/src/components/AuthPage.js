@@ -24,8 +24,6 @@ function AuthPage() {
       password: spswd
     }
     const api = userApis.userSignup
-    console.log(headers)
-    console.log(JSON.stringify(userinfo))
     let resp = await fetch(api.url, {
       method: api.method,
       headers: headers,
