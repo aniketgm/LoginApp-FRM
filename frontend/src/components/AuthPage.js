@@ -32,10 +32,8 @@ function AuthPage() {
       body: JSON.stringify(userinfo)
     });
     if (resp.ok) {
-      // console.log(resp)
       let data = await resp.json()
-      console.log(data)
-      navigate('/dashboard/', data)
+      navigate('/dashboard', { state: data })
     } else {
       throw Error(resp.status)
     }
@@ -54,8 +52,7 @@ function AuthPage() {
     });
     if (resp.ok) {
       let data = await resp.json()
-      console.log(data)
-      navigate('/dashboard', { replace: true, state: data })
+      navigate('/dashboard', { state: data })
     } else {
       throw Error(resp.status)
     }

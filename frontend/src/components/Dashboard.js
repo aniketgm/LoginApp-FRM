@@ -1,11 +1,13 @@
 import React from "react";
 import { userApis } from "./Apis";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
 
   let navigate = useNavigate()
-  let { id, name, email } = useParams()
+  let location = useLocation()
+
+  const { _id, name, email } = location.state;
 
   async function handleLogout() {
     const headers = { 'Content-Type': 'application/json' }
@@ -26,7 +28,7 @@ const Dashboard = () => {
     <div className="card-wrapper">
       <div className="card">
         <h1 className="center">Dashboard</h1>
-        <p className="center">You are currently signed in.</p>
+        <p className="center">You are currently logged in.</p>
         <div className="center">
           <button className="btn btn--secondary" onClick={handleLogout}>Log Out</button>
         </div>
@@ -35,9 +37,9 @@ const Dashboard = () => {
       <div className="card">
         <h2 className="center">Your Info</h2>
         <p>
-          <strong>ID:</strong>{id ? id : ""}<br />
-          <strong>Name:</strong>{name ? name : ""}<br />
-          <strong>Email:</strong>{email ? email : ""}
+          <strong>ID:</strong> {_id ? _id : ""}<br />
+          <strong>Name:</strong> {name ? name : ""}<br />
+          <strong>Email:</strong> {email ? email : ""}
         </p>
       </div>
     </div>
