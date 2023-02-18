@@ -39,7 +39,7 @@ class TestUserSignup(unittest.TestCase):
                 "email": user_email,
                 "password": user_passwd
             })
-            
+
             # Check user data in the database
             self.assertEqual(self._testdb.users.count_documents({ "name": user_name }), 1, "Should be only 1 document")
             user_doc = self._testdb.users.find_one({ "email": user_email })
