@@ -1,7 +1,7 @@
 import uuid
 from flask import jsonify, session
-from src import get_db_instance
 from passlib.hash import pbkdf2_sha256
+from src import get_db_instance
 
 class UserAuth:
 
@@ -12,13 +12,13 @@ class UserAuth:
     # Start session when logged in OR signed in.
     def start_session(self, user: dict):
         data = {}
-        if not session.get('logged_in', False):
+        if not session.get('logged_in'):
             del user['password']
             session['logged_in'] = True
             session['user'] = user
             data = user
         else:
-            data['message'] = 'Already logged in'
+            data = { 'message': 'Already signed in' }
         return jsonify(data), 200
 
     # Called from signup to add new user. This will start the session as well.
@@ -38,7 +38,7 @@ class UserAuth:
         if user_info:
             user = self._db.users.find_one({ 'email': user_info['email'] })
             if user and pbkdf2_sha256.verify(user_info['password'], user['password']):
-                return self.start_session((user))
+                return self.start_session(user)
             else:
                 return jsonify({ 'error': "Invalid user input" }), 400
         else:

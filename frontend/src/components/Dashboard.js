@@ -11,8 +11,8 @@ const Dashboard = () => {
   const { _id, name, email } = location.state;
 
   async function handleLogout() {
+    // Setting content-type as plain text avoids OPTIONS call.
     const headers = {
-      // Setting content-type as plain text avoids OPTIONS call.
       'Content-Type': 'text/plain',
     }
     const api = userApis.userLogout
